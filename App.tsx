@@ -19,7 +19,7 @@ export default function App() {
   const [numbers, setNumbers] = useState(false);
   const [symbols, setSymbols] = useState(false);
 
-  const generatePasswordString = (passwordLength) => {
+  const generatePasswordString = (passwordLength: number) => {
     let characterList = '';
 
     const upperCaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -46,7 +46,7 @@ export default function App() {
     setIsPassGenerated(true);
   }
 
-  const createPassword = (characters, passwordLength) => {
+  const createPassword = (characters: string, passwordLength: number) => {
     let result = '';
     for (let i = 0; i < passwordLength; i++) {
       const characterIndex = Math.round(Math.random() * characters.length);
@@ -102,11 +102,17 @@ export default function App() {
                   <TextInput
                     style={styles.inputStyle}
                     value={values.passwordLength}
-                    onChangeText={(number) => {
-                      handleChange('passwordLength')(number); // Update Formik state with new value
-                      setFieldTouched('passwordLength', true, true); // Mark the field as touched
+                    onChangeText={(text) => {
+                      handleChange('passwordLength')(text)
+                      {
+                        touched.passwordLength && errors.passwordLength && (
+                          <Text style={styles.errorText}>
+                            {errors.passwordLength}
+                          </Text>
+                        )
+                      }
                     }}
-                    placeholder="Ex. 0"
+                    placeholder="Ex. 8"
                     keyboardType='numeric'
                   />
 
